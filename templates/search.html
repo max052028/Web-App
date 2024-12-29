@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>搜索國家數據</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="search.html">搜索</a></li>
+            <li><a href="compare.html">比較</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h1>國家數據搜索</h1>
+        
+        <div class="search-box">
+            <input type="text" id="countrySearch" placeholder="輸入國家名稱...">
+            <button onclick="searchCountry()">搜索</button>
+        </div>
+        
+        <div id="results" class="results-container"></div>
+    </div>
+    
+    <script src="../static/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+- country_wise_latest
+-- Country/Region
+-- Confirmed
+-- Deaths
+-- Recovered
+-- Active
+-- New cases
+-- New deaths
+-- New recovered
+-- Deaths / 100 Cases
+-- Recovered / 100 Cases
+-- Deaths / 100 Recovered
+-- Confirmed last week
+-- 1 week change
+-- 1 week % increase
+-- WHO Region
+
+- covid_19_clean_complete
+-- Province/State
+-- Country/Region
+-- Lat
+-- Long
+-- Date
+-- Confirmed
+-- Deaths
+-- Recovered
+-- Active
+-- WHO Region
+
+- day_wise
+-- Date
+-- Confirmed
+-- Deaths
+-- Recovered
+-- Active
+-- New cases
+-- New deaths
+-- New recovered
+-- Deaths / 100 Cases
+-- Recovered / 100 Cases
+-- Deaths / 100 Recovered
+-- No. of countries
+
+- full_grouped
+-- Date
+-- Country/Region
+-- Confirmed
+-- Deaths
+-- Recovered
+-- Active
+-- New cases
+-- New deaths
+-- New recovered
+-- WHO Region
+
+- usa_country_wise
+-- UID
+-- iso2
+-- iso3
+-- code3
+-- FIPS
+-- Admin2
+-- Province_State
+-- Country_Region
+-- Lat
+-- Long_
+-- Combined_Key
+-- Date
+-- Confirmed
+-- Deaths
+
+- worldometer_data
+-- Country/Region
+-- Continent
+-- Population
+-- TotalCases
+-- NewCases
+-- TotalDeaths
+-- NewDeaths
+-- TotalRecovered
+-- NewRecovered
+-- ActiveCases
+-- Serious,Critical
+-- Tot Cases/1M pop
+-- Deaths/1M pop
+-- TotalTests
+-- Tests/1M pop
+-- WHO Region

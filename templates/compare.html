@@ -1,0 +1,118 @@
+<!-- templates/compare.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>國家數據比較</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="search.html">搜索</a></li>
+            <li><a href="compare.html">比較</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h1>國家數據比較</h1>
+        
+        <div class="compare-controls">
+            <div class="country-select">
+                <select id="country1" onchange="updateComparison()">
+                    <option value="">選擇第一個國家</option>
+                    {% for country in countries %}
+                    <option value="{{ country }}">{{ country }}</option>
+                    {% endfor %}
+                </select>
+                
+                <select id="country2" onchange="updateComparison()">
+                    <option value="">選擇第二個國家</option>
+                    {% for country in countries %}
+                    <option value="{{ country }}">{{ country }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="metric-select">
+                <select id="metric" onchange="updateComparison()">
+                    <option value="confirmed">確診病例</option>
+                    <option value="deaths">死亡人數</option>
+                    <option value="recovered">康復人數</option>
+                    <option value="active">現存病例</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="comparison-results">
+            <div class="comparison-grid">
+                <div id="country1-data" class="country-data"></div>
+                <div id="country2-data" class="country-data"></div>
+            </div>
+            <div class="chart-container">
+                <canvas id="comparisonChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let comparisonChart = null;
+
+        async function updateComparison() {
+            const country1 = document.getElementById('country1').value;
+            const country2 = document.getElementById('country2').value;
+            const metric = document.getElementById('metric').value;
+            
+            if (!country1 || !country2) return;
+            
+            try {
+                const [data1, data2] = await Promise.all([
+                    fetch(`/api/country/${country1}`).then(res => res.json()),
+                    fetch(`/api/country/${country2}`).then(res => res.json())
+                ]);
+                
+                // 更新數據顯示
+                document.getElementById('country1-data').innerHTML = `
+                    <h3>${country1}</h3>
+                    <p>${metric}: ${data1[metric].toLocaleString()}</p>
+                `;
+                
+                document.getElementById('country2-data').innerHTML = `
+                    <h3>${country2}</h3>
+                    <p>${metric}: ${data2[metric].toLocaleString()}</p>
+                `;
+                
+                // 更新圖表
+                const ctx = document.getElementById('comparisonChart').getContext('2d');
+                if (comparisonChart) {
+                    comparisonChart.destroy();
+                }
+                
+                comparisonChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: [country1, country2],
+                        datasets: [{
+                            label: metric,
+                            data: [data1[metric], data2[metric]],
+                            backgroundColor: ['#007bff', '#28a745']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
